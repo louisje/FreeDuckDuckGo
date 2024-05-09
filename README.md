@@ -5,9 +5,8 @@
 #### FreeDuckDuckGo Service
 
 ```bash
-mkdir FreeDuckDuckGo && cd FreeDuckDuckGo
-wget -O compose.yaml https://raw.githubusercontent.com/missuo/FreeDuckDuckGo/main/compose.yaml
-docker compose up -d
+git clone https://github.com/louisje/FreeDuckDuckGo.git && cd FreeDuckDuckGo
+docker compose up -d --build
 ```
 
 ### Test FreeDuckDuckGo

@@ -65,7 +65,7 @@ type DuckDuckGoResponse struct {
 func chatWithDuckDuckGo(c *gin.Context, messages []struct {
 	Role    string `json:"role"`
 	Content string `json:"content"`
-}, stream bool) {
+}, stream bool, model string) {
 	userAgent := "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:123.0) Gecko/20100101 Firefox/123.0"
 	headers := map[string]string{
 		"User-Agent":      userAgent,
@@ -109,7 +109,7 @@ func chatWithDuckDuckGo(c *gin.Context, messages []struct {
 	vqd4 := resp.Header.Get("x-vqd-4")
 
 	payload := map[string]interface{}{
-		"model":    "gpt-3.5-turbo-0125",
+		"model":    model,
 		"messages": messages,
 	}
 
@@ -262,9 +262,7 @@ func main() {
 				req.Messages[i].Role = "user"
 			}
 		}
-		// set model to gpt-3.5-turbo-0125
-		req.Model = "gpt-3.5-turbo-0125"
-		chatWithDuckDuckGo(c, req.Messages, req.Stream)
+		chatWithDuckDuckGo(c, req.Messages, req.Stream, req.Model)
 	})
 
 	r.GET("/v1/models", func(c *gin.Context) {
@@ -273,6 +271,12 @@ func main() {
 			"data": []gin.H{
 				{
 					"id":       "gpt-3.5-turbo-0125",
+					"object":   "model",
+					"created":  1692901427,
+					"owned_by": "system",
+				},
+				{
+					"id":       "claude-3-haiku-20240307",
 					"object":   "model",
 					"created":  1692901427,
 					"owned_by": "system",

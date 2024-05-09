@@ -1,5 +1,7 @@
 services:
   FreeDuckDuckGo:
+    build:
+      context: .
     image: ghcr.io/missuo/freeduckduckgo:latest
     restart: always
     ports:
